@@ -2,7 +2,9 @@
 // Mapa de rotas da aplicação. Todas ficam dentro do MainLayout (rota mãe).
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { MainLayout } from '@/layouts/MainLayout'
+import { HomePage } from '@/pages/HomePage'
 import { NotFoundPage } from '@/pages/NotFoundPage'
+import { SobrePage } from '@/pages/SobrePage'
 
 export default function App() {
   return (
@@ -10,7 +12,8 @@ export default function App() {
       <Routes>
         {/* Rota mãe: sem path, só desenha a moldura */}
         <Route element={<MainLayout />}>
-          {/* As páginas entram aqui nas próximas features */}
+          <Route index element={<HomePage />} />
+          <Route path="sobre" element={<SobrePage />} />
 
           {/* Coringa: qualquer URL que não bateu com as rotas acima */}
           <Route path="*" element={<NotFoundPage />} />
