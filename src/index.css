@@ -1,111 +1,79 @@
-:root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+/* ============================================================
+   ColheAí · Since Young · GS 2026/2 CitizenTech · Front-End Design Engineering
+   Artur Bianchini Esteves (RM569450) · João Vitor Oliveira Fontenele Martins (RM570783)
+   Turma 1TDSPV-2026
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+   Tailwind v4 configurado no próprio CSS, como na Aula 8:
+   @import + @theme (identidade) + @layer base + @layer components.
+   Visual: verde escuro, branco e neutros; o amarelo fica no botão
+   principal e nas plaquinhas de preço da barraca.
+   ============================================================ */
+@import "tailwindcss";
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@theme {
+  /* Identidade visual do ColheAí: cada variável vira classe (bg-horta, text-tinta…) */
+  --color-horta: #2f7a57;
+  --color-grafite: #5a6672;
+  --color-salvia: #dcede2;
+  --color-salvia-media: #a9d3b9;
+  --color-concreto: #e4e8ec;
+  --color-milho: #f4e7c2;
+  --color-nevoa: #f6f8f7;
+  --color-tinta: #24302b;
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
+  /* Cores do site */
+  --color-mata: #14432f;        /* verde escuro: header, hero, rodapé */
+  --color-milho-vivo: #f5c84c;  /* acento: botão principal e marcações (texto tinta: 9:1) */
+  --color-terra: #9f3a2b;       /* erro e "passou do limite" */
+  --color-terra-clara: #fbeeeb;
+
+  --font-display: "Urbanist", system-ui, sans-serif;
+  --font-sans: "Atkinson Hyperlegible Next", system-ui, sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-white font-sans text-[1.0625rem] text-tinta antialiased;
+  }
+
+  button:not(:disabled) {
+    cursor: pointer;
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+@layer components {
+  /* Superfície branca com fio Concreto: sem sombra, como pede a identidade */
+  .card {
+    @apply rounded-2xl border border-concreto bg-white;
   }
 
-  #social .button-icon {
-    filter: invert(1) brightness(2);
+  /* Botão principal: único lugar de amarelo cheio; 48px de altura para o dedo */
+  .btn-primary {
+    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-milho-vivo px-6
+      font-bold text-tinta transition hover:brightness-95
+      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-horta focus-visible:ring-offset-2
+      disabled:bg-concreto disabled:text-grafite;
   }
-}
 
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-}
-
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
-}
-
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
+  .btn-secondary {
+    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-grafite bg-white px-6
+      font-bold text-tinta transition hover:bg-nevoa
+      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-horta focus-visible:ring-offset-2;
   }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
+
+  .field {
+    @apply min-h-12 w-full rounded-xl border border-grafite bg-white px-4 text-tinta
+      focus:outline-none focus-visible:ring-2 focus-visible:ring-horta;
   }
-}
-p {
-  margin: 0;
-}
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
-}
+  /* Plaquinha de preço da feira: é assim que o agricultor já lê preço.
+     É o único bloco amarelo da página, sempre dentro da "barraca". */
+  .plaquinha {
+    @apply relative block rounded-lg bg-milho-vivo p-4 pt-6 text-left text-tinta transition
+      focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white;
+  }
 
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+  .marca-ai {
+    @apply underline decoration-[0.085em] underline-offset-[0.13em];
+  }
 }
