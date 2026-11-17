@@ -4,6 +4,7 @@
 // Dados da API: chamada aberta com seus itens e a meta de cada prefeitura.
 import { Clock } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { AvisoServidor } from '@/components/AvisoServidor'
 import { BarraMeta } from '@/components/BarraMeta'
 import { IlustracaoPasso } from '@/components/IlustracaoPasso'
 import { Mensagem } from '@/components/Mensagem'
@@ -80,6 +81,9 @@ export function HomePage() {
                     ))}
                   </div>
                   <Skeleton className="mt-4 h-5 w-2/3 bg-white/25" />
+                  <div className="mt-4">
+                    <AvisoServidor carregando={loading} fundo="escuro" />
+                  </div>
                 </div>
               ) : !chamada ? (
                 <Mensagem tipo="vazio" titulo="Nenhuma chamada aberta agora.">
