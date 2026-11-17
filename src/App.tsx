@@ -1,122 +1,83 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+// Since Young · ColheAí · GS 2026/2 · Front-End Design Engineering
+// Mapa de rotas da aplicação. Todas ficam dentro do MainLayout (rota mãe).
+import { lazy } from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { ProtectedRoute } from '@/components/ProtectedRoute'
+import { AuthProvider } from '@/contexts/AuthProvider'
+import { MainLayout } from '@/layouts/MainLayout'
+import { HomePage } from '@/pages/HomePage'
 
-function App() {
-  const [count, setCount] = useState(0)
+// Code splitting (Aula 9): a Home vem no pacote principal, porque é a porta de
+// entrada. As outras páginas só são baixadas quando a pessoa navega até elas.
+// O .then adapta o export nomeado (export function XPage) para o formato que o lazy espera.
+const ChamadaPage = lazy(() =>
+  import('@/pages/ChamadaPage').then((modulo) => ({ default: modulo.ChamadaPage })),
+)
+const ChamadasPage = lazy(() =>
+  import('@/pages/ChamadasPage').then((modulo) => ({ default: modulo.ChamadasPage })),
+)
+const ContatoPage = lazy(() =>
+  import('@/pages/ContatoPage').then((modulo) => ({ default: modulo.ContatoPage })),
+)
+const EntrarPage = lazy(() =>
+  import('@/pages/EntrarPage').then((modulo) => ({ default: modulo.EntrarPage })),
+)
+const FaqPage = lazy(() =>
+  import('@/pages/FaqPage').then((modulo) => ({ default: modulo.FaqPage })),
+)
+const IntegrantesPage = lazy(() =>
+  import('@/pages/IntegrantesPage').then((modulo) => ({ default: modulo.IntegrantesPage })),
+)
+const MinhasPropostasPage = lazy(() =>
+  import('@/pages/MinhasPropostasPage').then((modulo) => ({ default: modulo.MinhasPropostasPage })),
+)
+const NotFoundPage = lazy(() =>
+  import('@/pages/NotFoundPage').then((modulo) => ({ default: modulo.NotFoundPage })),
+)
+const PainelPage = lazy(() =>
+  import('@/pages/PainelPage').then((modulo) => ({ default: modulo.PainelPage })),
+)
+const SobrePage = lazy(() =>
+  import('@/pages/SobrePage').then((modulo) => ({ default: modulo.SobrePage })),
+)
 
+export default function App() {
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    // O AuthProvider envolve as rotas: qualquer página sabe quem é o agricultor
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          {/* Rota mãe: sem path, só desenha a moldura */}
+          <Route element={<MainLayout />}>
+            <Route index element={<HomePage />} />
 
-      <div className="ticks"></div>
+            {/* Páginas da solução */}
+            <Route path="chamadas" element={<ChamadasPage />} />
+            {/* Rota com parâmetro: o :id é lido com useParams na página */}
+            <Route path="chamadas/:id" element={<ChamadaPage />} />
+            <Route path="painel" element={<PainelPage />} />
+            <Route path="entrar" element={<EntrarPage />} />
+            {/* Rota protegida: sem agricultor identificado, vai para /entrar */}
+            <Route
+              path="minhas-propostas"
+              element={
+                <ProtectedRoute>
+                  <MinhasPropostasPage />
+                </ProtectedRoute>
+              }
+            />
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+            {/* Páginas institucionais */}
+            <Route path="sobre" element={<SobrePage />} />
+            <Route path="integrantes" element={<IntegrantesPage />} />
+            <Route path="faq" element={<FaqPage />} />
+            <Route path="contato" element={<ContatoPage />} />
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+            {/* Coringa: qualquer URL que não bateu com as rotas acima */}
+            <Route path="*" element={<NotFoundPage />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   )
 }
-
-export default App
