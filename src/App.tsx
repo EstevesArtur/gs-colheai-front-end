@@ -1,6 +1,7 @@
 // Since Young · ColheAí · GS 2026/2 · Front-End Design Engineering
 // Mapa de rotas da aplicação. Todas ficam dentro do MainLayout (rota mãe).
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { ProtectedRoute } from '@/components/ProtectedRoute'
 import { AuthProvider } from '@/contexts/AuthProvider'
 import { MainLayout } from '@/layouts/MainLayout'
 import { ChamadaPage } from '@/pages/ChamadaPage'
@@ -10,6 +11,7 @@ import { EntrarPage } from '@/pages/EntrarPage'
 import { FaqPage } from '@/pages/FaqPage'
 import { HomePage } from '@/pages/HomePage'
 import { IntegrantesPage } from '@/pages/IntegrantesPage'
+import { MinhasPropostasPage } from '@/pages/MinhasPropostasPage'
 import { NotFoundPage } from '@/pages/NotFoundPage'
 import { SobrePage } from '@/pages/SobrePage'
 
@@ -28,6 +30,15 @@ export default function App() {
             {/* Rota com parâmetro: o :id é lido com useParams na página */}
             <Route path="chamadas/:id" element={<ChamadaPage />} />
             <Route path="entrar" element={<EntrarPage />} />
+            {/* Rota protegida: sem agricultor identificado, vai para /entrar */}
+            <Route
+              path="minhas-propostas"
+              element={
+                <ProtectedRoute>
+                  <MinhasPropostasPage />
+                </ProtectedRoute>
+              }
+            />
 
             {/* Páginas institucionais */}
             <Route path="sobre" element={<SobrePage />} />
