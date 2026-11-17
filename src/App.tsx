@@ -13,6 +13,7 @@ import { HomePage } from '@/pages/HomePage'
 import { IntegrantesPage } from '@/pages/IntegrantesPage'
 import { MinhasPropostasPage } from '@/pages/MinhasPropostasPage'
 import { NotFoundPage } from '@/pages/NotFoundPage'
+import { PainelPage } from '@/pages/PainelPage'
 import { SobrePage } from '@/pages/SobrePage'
 
 export default function App() {
@@ -29,6 +30,7 @@ export default function App() {
             <Route path="chamadas" element={<ChamadasPage />} />
             {/* Rota com parâmetro: o :id é lido com useParams na página */}
             <Route path="chamadas/:id" element={<ChamadaPage />} />
+            <Route path="painel" element={<PainelPage />} />
             <Route path="entrar" element={<EntrarPage />} />
             {/* Rota protegida: sem agricultor identificado, vai para /entrar */}
             <Route
