@@ -1,0 +1,9 @@
+Global Solution 2026/2 - CitizenTech
+Disciplina: Front-End Design Engineering
+Grupo: Since Young
+Solução: ColheAí
+Turma: 1TDSPV-2026
+
+Integrantes
+RM569450 - Artur Bianchini Esteves (representante)
+RM570783 - João Vitor Oliveira Fontenele Martins
