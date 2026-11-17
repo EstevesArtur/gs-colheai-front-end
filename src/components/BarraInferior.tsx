@@ -5,6 +5,7 @@
 import { useState } from 'react'
 import { Home, List, Menu, Tag, X } from 'lucide-react'
 import { Link, NavLink } from 'react-router-dom'
+import { useAuth } from '@/hooks/useAuth'
 import { LINKS_DO_MENU } from '@/utils/menu'
 
 // Atalhos fixos da barra; o resto dos links aparece dentro do menu.
@@ -22,6 +23,7 @@ const atalhoClass = ({ isActive }: { isActive: boolean }) =>
 export function BarraInferior() {
   // Controla se a lista de páginas está aberta
   const [menuAberto, setMenuAberto] = useState(false)
+  const { agricultor, sair } = useAuth()
 
   const caminhosDosAtalhos = ATALHOS.map((atalho) => atalho.para)
   const outrosLinks = LINKS_DO_MENU.filter((link) => !caminhosDosAtalhos.includes(link.para))
@@ -54,9 +56,22 @@ export function BarraInferior() {
               </li>
             ))}
             <li>
-              <Link to="/entrar" onClick={fecharMenu} className="flex min-h-12 items-center text-horta">
-                Entrar com meu CAF
-              </Link>
+              {agricultor ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    sair()
+                    fecharMenu()
+                  }}
+                  className="flex min-h-12 w-full items-center text-left font-semibold text-horta"
+                >
+                  Sair ({agricultor.nome.split(' ')[0]})
+                </button>
+              ) : (
+                <Link to="/entrar" onClick={fecharMenu} className="flex min-h-12 items-center text-horta">
+                  Entrar com meu CAF
+                </Link>
+              )}
             </li>
           </ul>
         </nav>
