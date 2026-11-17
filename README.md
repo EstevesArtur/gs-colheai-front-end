@@ -9,11 +9,11 @@ O ColheAí aproxima o agricultor familiar da merenda escolar. Pelo celular, ele 
 
 | O quê | Onde |
 |---|---|
-| Aplicação publicada (Vercel) | COLE_AQUI_O_LINK_DA_VERCEL |
+| Aplicação publicada (Vercel) | https://gs-colheai-front-end.vercel.app |
 | Repositório (GitHub) | https://github.com/EstevesArtur/gs-colheai-front-end |
 | API Java (Render) | https://colheai-api.onrender.com |
 | Repositório da API | https://github.com/EstevesArtur/colheai-api |
-| Vídeo (YouTube) | COLE_AQUI_O_LINK_DO_YOUTUBE |
+| Vídeo (YouTube) | https://www.youtube.com/watch?v=5BGK91X_z7A |
 
 > A API fica no plano gratuito do Render e "dorme" sem uso. A primeira consulta pode levar até 1 minuto, e o site avisa quando isso acontece.
 
