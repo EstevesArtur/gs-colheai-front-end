@@ -77,6 +77,19 @@ export function unidadeNoPreco(unidade: UnidadeMedida): string {
   return UNIDADE_NO_PRECO[unidade]
 }
 
+// Unidade depois de uma quantidade: "1.000 kg", "1 dúzia", "30 dúzias"
+const UNIDADES: Record<UnidadeMedida, [string, string]> = {
+  KG: ['kg', 'kg'],
+  UNIDADE: ['unidade', 'unidades'],
+  MACO: ['maço', 'maços'],
+  DUZIA: ['dúzia', 'dúzias'],
+}
+
+export function rotuloUnidade(unidade: UnidadeMedida, quantidade: number): string {
+  const [singular, plural] = UNIDADES[unidade]
+  return quantidade === 1 ? singular : plural
+}
+
 const CATEGORIAS: Record<CategoriaProduto, string> = {
   HORTALICA: 'Hortaliça',
   FRUTA: 'Fruta',

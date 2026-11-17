@@ -3,6 +3,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { AuthProvider } from '@/contexts/AuthProvider'
 import { MainLayout } from '@/layouts/MainLayout'
+import { ChamadaPage } from '@/pages/ChamadaPage'
 import { ChamadasPage } from '@/pages/ChamadasPage'
 import { ContatoPage } from '@/pages/ContatoPage'
 import { EntrarPage } from '@/pages/EntrarPage'
@@ -24,6 +25,8 @@ export default function App() {
 
             {/* Páginas da solução */}
             <Route path="chamadas" element={<ChamadasPage />} />
+            {/* Rota com parâmetro: o :id é lido com useParams na página */}
+            <Route path="chamadas/:id" element={<ChamadaPage />} />
             <Route path="entrar" element={<EntrarPage />} />
 
             {/* Páginas institucionais */}
