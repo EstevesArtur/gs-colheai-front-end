@@ -2,6 +2,7 @@
 // Mapa de rotas da aplicação. Todas ficam dentro do MainLayout (rota mãe).
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { MainLayout } from '@/layouts/MainLayout'
+import { ChamadasPage } from '@/pages/ChamadasPage'
 import { ContatoPage } from '@/pages/ContatoPage'
 import { FaqPage } from '@/pages/FaqPage'
 import { HomePage } from '@/pages/HomePage'
@@ -16,6 +17,11 @@ export default function App() {
         {/* Rota mãe: sem path, só desenha a moldura */}
         <Route element={<MainLayout />}>
           <Route index element={<HomePage />} />
+
+          {/* Páginas da solução */}
+          <Route path="chamadas" element={<ChamadasPage />} />
+
+          {/* Páginas institucionais */}
           <Route path="sobre" element={<SobrePage />} />
           <Route path="integrantes" element={<IntegrantesPage />} />
           <Route path="faq" element={<FaqPage />} />
